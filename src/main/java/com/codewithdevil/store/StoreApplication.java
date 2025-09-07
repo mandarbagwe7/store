@@ -22,9 +22,9 @@ public class StoreApplication {
 //        var notificationManager = context.getBean(NotificationManager.class);
 //        notificationManager.sendNotification("Hello World");
 
-        var userService = context.getBean(UserService.class);
-        userService.registerUser(new User(1, "Mandar", "mandar@xyz.com", "1234"));
-        userService.registerUser(new User(2, "Mandar B", "mandar@xyz.com", "1234"));
+//        var userService = context.getBean(UserService.class);
+//        userService.registerUser(new User(1, "Mandar", "mandar@xyz.com", "1234"));
+//        userService.registerUser(new User(2, "Mandar B", "mandar@xyz.com", "1234"));
 
 
     }
