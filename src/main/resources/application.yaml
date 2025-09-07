@@ -1,0 +1,12 @@
+spring:
+  application:
+    name: store
+stripe:
+  apiurl: https://www.stripe.com
+  enabled: true
+  timeout: 1000
+  supported-currencies: INR,USD,EUR
+payment-gateway: stripe
+email:
+  host: localhost
+  port: 8080
