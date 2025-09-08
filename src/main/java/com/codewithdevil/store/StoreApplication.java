@@ -1,31 +1,40 @@
 package com.codewithdevil.store;
 
-import org.springframework.boot.SpringApplication;
+import com.codewithdevil.store.entities.Address;
+import com.codewithdevil.store.entities.Profile;
+import com.codewithdevil.store.entities.User;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.context.ApplicationContext;
-import org.springframework.context.ConfigurableApplicationContext;
 
 @SpringBootApplication
 public class StoreApplication {
 
 	public static void main(String[] args) {
 //		ApplicationContext context = SpringApplication.run(StoreApplication.class, args);
-        ConfigurableApplicationContext context = SpringApplication.run(StoreApplication.class, args);
 
-//        var resource = context.getBean(HeavyResource.class);
+        var user = User.builder()
+                .name("admin")
+                .password("admin")
+                .email("xyz.com")
+                .build();
 
-//        var orderService = context.getBean(OrderService.class);
-//        var orderService2 = context.getBean(OrderService.class);
-//        orderService.placeOrder();
-//        context.close();
+        var address = Address.builder()
+                .street("123 Main St")
+                .city("Dublin")
+                .state("NY")
+                .zipcode("123")
+                .build();
 
-//        var notificationManager = context.getBean(NotificationManager.class);
-//        notificationManager.sendNotification("Hello World");
+        user.addAddress(address);
 
-//        var userService = context.getBean(UserService.class);
-//        userService.registerUser(new User(1, "Mandar", "mandar@xyz.com", "1234"));
-//        userService.registerUser(new User(2, "Mandar B", "mandar@xyz.com", "1234"));
+        user.addTag("tag1");
 
+        var profile = Profile.builder()
+                        .bio("admin")
+                        .build();
+
+        user.addProfile(profile);
+
+        System.out.println(user);
 
     }
 
