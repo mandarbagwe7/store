@@ -1,10 +1,13 @@
 package com.codewithdevil.store;
 
+import com.codewithdevil.store.entities.Category;
 import com.codewithdevil.store.services.ProductService;
 import com.codewithdevil.store.services.UserService;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.ApplicationContext;
+
+import java.math.BigDecimal;
 
 @SpringBootApplication
 public class StoreApplication {
@@ -12,13 +15,27 @@ public class StoreApplication {
 	public static void main(String[] args) {
 		ApplicationContext context = SpringApplication.run(StoreApplication.class, args);
         var service = context.getBean(ProductService.class);
-        service.updateProductPrice();
+        service.fetchProductsByCategorySpecification(new Category((byte)1));
+//        service.fetchProductsByCategoryCriteria();
+//        service.fetchPaginatedProducts(0, 10);
+//        service.fetchSortedProducts();
+//        service.fetchProductsBySpecification("prod", null, null);
+//        service.fetchProductByCriteria();
+//        service.fetchProducts();
+//        service.getProductsByProcedure();
+//        service.getProductByCategory();
+//        service.updateProductPrice();
 //        service.deleteProduct();
 //        service.addProduct();
 //        service.anotherProduct();
 //        service.productsToWishlist();
 
 //        var service = context.getBean(UserService.class);
+//        service.findProfiles();
+//        service.findProfiles();
+//        service.addUserAndProfile();
+//        service.fetchUsers();
+//        service.fetchUser();
 //        service.removeRelated();
 //        service.persistRelated();
 //        service.showRelatedEntities();

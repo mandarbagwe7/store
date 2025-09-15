@@ -1,6 +1,7 @@
 package com.codewithdevil.store.services;
 
 import com.codewithdevil.store.entities.Address;
+import com.codewithdevil.store.entities.Profile;
 import com.codewithdevil.store.entities.User;
 import com.codewithdevil.store.repositories.AddressRepository;
 import com.codewithdevil.store.repositories.ProfileRepository;
@@ -8,7 +9,6 @@ import com.codewithdevil.store.repositories.UserRepository;
 import jakarta.persistence.EntityManager;
 import jakarta.transaction.Transactional;
 import lombok.AllArgsConstructor;
-import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -82,4 +82,56 @@ public class UserService {
 //        user.removeAddress(address);
 //        userRepository.save(user);
     }
+
+    @Transactional
+    public void fetchUser(){
+        var user = userRepository.findByEmail("johndoe@email.com").orElseThrow();
+        System.out.println(user);
+    }
+
+    @Transactional
+    public void fetchUsers(){
+        var users = userRepository.findAllWithAddresses();
+        users.forEach(u -> {
+            System.out.println(u);
+            u.getAddresses().forEach(System.out::println);
+        });
+    }
+
+    @Transactional
+    public void addUserAndProfile(){
+        var user = User.builder()
+                .name("John3")
+                .password("1234")
+                .email("john3@gmail.com")
+                .build();
+
+        var profile = Profile.builder()
+                .bio("Hello3")
+                .build();
+
+        user.addProfile(profile);
+        userRepository.save(user);
+    }
+
+    @Transactional
+    public void findProfiles(){
+//        var profiles = profileRepository.findWithLoyaltyPoints(2);
+//        profiles.forEach(profile -> {
+//            System.out.println(profile.getId());
+//            System.out.println(profile.getUser().getEmail());
+//        });
+//
+//        var profiles = profileRepository.findWithLoyaltyPoints(2);
+//        profiles.forEach(profile -> {
+//            System.out.println(profile.getId());
+//            System.out.println(profile.getEmail());
+//        });
+        var users = userRepository.findLoyalUsers(2);
+        users.forEach(u -> {
+            System.out.println(u.getId());
+            System.out.println(u.getEmail());
+        });
+    }
+
 }

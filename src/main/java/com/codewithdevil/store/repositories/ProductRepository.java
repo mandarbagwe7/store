@@ -1,15 +1,21 @@
 package com.codewithdevil.store.repositories;
 
+import com.codewithdevil.store.dtos.ProductSummary;
+import com.codewithdevil.store.dtos.ProductSummaryDTO;
+import com.codewithdevil.store.entities.Category;
 import com.codewithdevil.store.entities.Product;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.jpa.repository.query.Procedure;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.query.Param;
 
 import java.math.BigDecimal;
 import java.util.List;
 
-public interface ProductRepository extends CrudRepository<Product,Long> {
+public interface ProductRepository extends JpaRepository<Product,Long>, ProductCriteriaRepository, JpaSpecificationExecutor<Product> {
 
     //String
     List<Product> findByName(String name);
@@ -60,4 +66,17 @@ public interface ProductRepository extends CrudRepository<Product,Long> {
     @Query("update Product p set p.price = :price where p.category.id = :categoryId")
     void updatePriceByCategory(@Param("price") BigDecimal price, @Param("categoryId") Byte categoryId);
 
+
+//    List<ProductSummary> findByCategory(Category category);
+
+//    List<ProductSummaryDTO> findByCategory(Category category);
+
+//    @Query("select p.id, p.name from Product p where p.category = :category")
+//    List<ProductSummary> findByCategory(@Param("category") Category category);
+
+    @Query("select new com.codewithdevil.store.dtos.ProductSummaryDTO(p.id, p.name) from Product p where p.category = :category")
+    List<ProductSummaryDTO> findByCategory(@Param("category") Category category);
+
+    @Procedure("findProductsByPrice")
+    List<Product> findProductsProc(BigDecimal min, BigDecimal max);
 }
