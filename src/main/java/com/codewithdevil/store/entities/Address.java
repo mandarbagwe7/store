@@ -27,13 +27,10 @@ public class Address {
     @Column(name = "zip")
     private String zipcode;
 
-    @Column(name = "user_id")
-    private Long userId;
-
     @Column(name = "state")
     private String state;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")
     @ToString.Exclude
     private User user;
